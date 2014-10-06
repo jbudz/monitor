@@ -13,7 +13,6 @@ module.exports = {
 		options = options || {
 			interval: 5
 		};
-
 		options.interval = Math.ceil(options.interval)*60000
 
 		statusInterval = setInterval(function() {
@@ -31,17 +30,35 @@ module.exports = {
 	stop: function() {
 		clearInterval(statusInterval);
 	},
-	add: function(newDomain) {
-		if(newDomain instanceof Array) {
-			domains = domains.concat(newDomain)
-		} else if(typeof newDomain === 'string') {
-			domains.push(newDomain);
+	add: function(domain) {
+		if(domain instanceof Array) {
+			var uniqueDomains = domain.filter(function(item) {
+				return domains.indexOf(item) === -1;
+			});
+			domains = domains.concat(uniqueDomains);
+		} else if(typeof domain === 'string' && domains.indexOf(domain) === -1) {
+			domains.push(domain);
 		}
 	},
 	remove: function(domain) {
-		var index = domains.indexOf(domain);
-		if(index >= 0) {
-			domains.splice(index, 1);
+		if(domain instanceof Array) {
+			domains = domains.filter(function(item) {
+				return domain.indexOf(item) === -1;
+			});
+		} else if(typeof domain === 'string') {
+			var index = domains.indexOf(domain);
+			if(index >= 0) {
+				domains.splice(index, 1);
+			}
 		}
+	},
+	clear: function() {
+		domains = [];
+	},
+	get: function() {
+		return domains.slice(0);
+	},
+	set: function(newDomains) {
+		domains = newDomains;
 	}
 }
