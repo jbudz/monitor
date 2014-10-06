@@ -19,9 +19,9 @@ module.exports = {
 			domains.forEach(function(domain) {
 				status.check(domain, function(res) {
 					if(res.state === codes.UP && success) {
-						success(res)
+						success(domain, res)
 					} else if(error) {
-						error(res);
+						error(domain, res);
 					}
 				});
 			});
