@@ -62,6 +62,6 @@ module.exports = {
 		return domains.slice(0);
 	},
 	set: function(newDomains) {
-		domains = newDomains;
+		domains = newDomains.slice(0);
 	}
 }
