@@ -18,7 +18,9 @@
   "homepage": "https://github.com/jbudz/monitor",
   "devDependencies": {
     "nock": "^0.48.0",
-    "should": "^4.0.4",
+    "should": "^4.0.4"
+  },
+  "dependencies": {
     "validator": "^3.19.0"
   }
 }
