@@ -15,7 +15,9 @@ module.exports = {
 		};
 		options.interval = Math.ceil(options.interval)*60000
 
-		statusInterval = setInterval(function() {
+		statusInterval = setInterval(checkDomains, options.interval);
+
+		function checkDomains() {
 			domains.forEach(function(domain) {
 				status.check(domain, function(res) {
 					if(res.state === codes.UP && success) {
@@ -25,7 +27,8 @@ module.exports = {
 					}
 				});
 			});
-		}, options.interval);
+		}
+		checkDomains();
 	},
 	stop: function() {
 		clearInterval(statusInterval);

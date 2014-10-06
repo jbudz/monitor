@@ -12,6 +12,22 @@ describe('status', function() {
 		})
 	})
 
+	it('should support http', function() {
+		nock('http://test.test').head('/').reply(200);
+		status.check('http://test.test', function(res) {
+			res.should.have.property('state', codes.UP);
+			res.should.have.property('code', 200);
+		});
+	});
+
+	it('should support https', function() {
+		nock('https://test.test').head('/').reply(200);
+		status.check('https://test.test', function(res) {
+			res.should.have.property('state', codes.UP);
+			res.should.have.property('code', 200);
+		});
+	});
+	
 	it('should be able to return an up status', function() {
 		nock('http://test.test').head('/').reply(201);
 		status.check('test.test', function(res) {
@@ -20,6 +36,7 @@ describe('status', function() {
 			res.should.not.have.property('code', 200);
 		});
 	});
+
 
 	it('should be able to return a down status', function() {
 		nock('http://test.test').head('/').reply(500);
