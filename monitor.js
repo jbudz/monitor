@@ -29,9 +29,11 @@ module.exports = {
 			});
 		}
 		checkDomains();
+		return this;
 	},
 	stop: function() {
 		clearInterval(statusInterval);
+		return this;
 	},
 	add: function(domain) {
 		if(domain instanceof Array) {
@@ -42,6 +44,7 @@ module.exports = {
 		} else if(typeof domain === 'string' && domains.indexOf(domain) === -1) {
 			domains.push(domain);
 		}
+		return this;
 	},
 	remove: function(domain) {
 		if(domain instanceof Array) {
@@ -54,14 +57,18 @@ module.exports = {
 				domains.splice(index, 1);
 			}
 		}
+		return this;
 	},
 	clear: function() {
 		domains = [];
+		return this;
 	},
 	get: function() {
 		return domains.slice(0);
+		return this;
 	},
 	set: function(newDomains) {
 		domains = newDomains.slice(0);
+		return this;
 	}
 }
